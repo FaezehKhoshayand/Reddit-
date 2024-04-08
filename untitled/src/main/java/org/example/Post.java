@@ -8,12 +8,12 @@ public class Post {
     private Subreddit subreddit;
     private int karma;
     private ArrayList<Comment> comments;
-    public Post(String title, String body, Account creator, Subreddit subreddit, int karma) {
+    public Post(String title, String body, Account creator, Subreddit subreddit) {
         this.title = title;
         this.body = body;
         this.creator = creator;
         this.subreddit = subreddit;
-        this.karma = karma;
+        this.karma = 0;
     }
     public String getTitle() {
         return title;
@@ -58,8 +58,10 @@ public class Post {
         System.out.println("Body: " + body);
         System.out.println("Votes: " + karma);
         System.out.println("Comments");
-        for(Comment temp : comments) {
-            temp.viewComment();
+        if (comments != null) {
+            for(Comment temp : comments) {
+                temp.viewComment();
+            }
         }
     }
 }

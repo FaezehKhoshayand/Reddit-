@@ -5,8 +5,9 @@ import java.util.ArrayList;
 public class Subreddit {
     private String title;
     private Account owner;
-    private ArrayList<Account> joinedUsers;
-    private ArrayList<Post> posts;
+    private ArrayList<Account> admins = new ArrayList<>();
+    private ArrayList<Account> joinedUsers = new ArrayList<>();
+    private ArrayList<Post> posts = new ArrayList<>();
     public Subreddit(String title, Account owner) {
         this.title = title;
         this.owner = owner;
@@ -35,12 +36,8 @@ public class Subreddit {
     public ArrayList<Post> getPosts() {
         return posts;
     }
-    public void createPost(String title, String body, Account creator, Subreddit subreddit, int karma) {
-        Post post = new Post(title, body, creator, subreddit, 0);
-        posts.add(post);
-    }
-    public void viewSubreddit(){
-        System.out.println("Title: " + title + "\nOwner: " + owner + "\nJoined Users:\n");
+    public void viewSubreddit(int i ){
+        System.out.println(i + ")Title:\n" + title + "\nOwner:\n" + owner.getUsername() + "\nJoined Users:");
         for (Account temp : joinedUsers) {
             System.out.println(temp.getUsername());
         }

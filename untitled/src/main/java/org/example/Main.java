@@ -4,7 +4,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Reddit reddit = new Reddit();
-        Reddit.addAccount(new Account("qw", "qw","qwerty@gmail.com"));
+        Account a = new Account("qw", "qw","qwerty@gmail.com");
+        Reddit.addAccount(a);
+        Reddit.createSubreddit("first subreddit", a);
         runMenu();
     }
     public static void runMenu() {
@@ -54,9 +56,8 @@ public class Main {
             }
         }
         else {
-            System.out.println("1)View TimeLine  2)View Joined Subreddits  3)View All Subreddits  4)View Profile  5)Create Subreddit");
+            makeMenu(account);
         }
-        //timeline
     }
     public static void signUp() {
         Scanner scanner = new Scanner(System.in);
@@ -75,5 +76,67 @@ public class Main {
         }
         Account account = new Account(username, password, emailAddress);
         account.signup(account);
+        makeMenu(account);
+    }
+    public static void makeMenu(Account account) {
+        System.out.println("Enter your command\n1)Create Subreddit  2)View All Posts  3)View All Subreddits  4)View Profile  5)Create Post  6)Search  7)View TimeLine 8)Change Username & Password  9)Join Subreddit  10)Log Out");
+        Scanner scanner = new Scanner(System.in);
+        int cmd = scanner.nextInt();
+        switch(cmd) {
+            case 1:
+                Scanner as = new Scanner(System.in);
+                System.out.println("Enter a title for the subreddit");
+                String title = as.nextLine();
+                Reddit.createSubreddit(title, account);
+                break;
+            case 2:
+
+            case 3:
+                Reddit.viewAllSubreddits();
+                break;
+            case 5:
+                System.out.println("zz");
+                if (account.getJoinedSubreddits().isEmpty()) {
+                    System.out.println("In order to post you need to join a subreddit");
+                    break;
+                }
+                else {
+                    account.viewJoinedSubreddits();
+                    Scanner d = new Scanner(System.in);
+                    int c = d.nextInt();
+                    System.out.println("Title");
+                    Scanner b = new Scanner(System.in);
+                    String Title = b.nextLine();
+                    System.out.println("Body");
+                    Scanner m = new Scanner(System.in);
+                    String body = m.nextLine();
+                    Reddit.createPost(Title, body, account, account.getJoinedSubreddits().get(c - 1));
+                }
+                break;
+            case 6:
+                String s;///////////
+                System.out.println("Enter whatever you want to search( ‘r/’ to the subreddit name and ‘u/’ to the username)");
+                break;
+            case 8:
+                Scanner sc = new Scanner(System.in);
+                System.out.println("new username: ");
+                String username = sc.nextLine();
+                System.out.println("new password: ");
+                scanner = new Scanner(System.in);
+                String password = sc.nextLine();
+                System.out.println("new EmailAddress: ");
+                scanner = new Scanner(System.in);
+                String emailAddress = sc.nextLine();
+                while(!Account.validateEmail(emailAddress)) {
+                    System.out.println("Not a valid emailAddress\nNew EmailAddress: ");
+                    scanner = new Scanner(System.in);
+                    emailAddress = sc.nextLine();
+                }
+                account.changePassword(password);
+                account.changeUsername(username);
+                account.changeEmailAddress(emailAddress);
+                break;
+        }
+        makeMenu(account);
     }
 }

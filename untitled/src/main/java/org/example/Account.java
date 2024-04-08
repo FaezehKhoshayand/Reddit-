@@ -1,6 +1,6 @@
 package org.example;
-
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -65,6 +65,15 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
     public int getCommentKarma() {
         return commentKarma;
     }
+    public ArrayList<Subreddit> getJoinedSubreddits() {
+        return joinedSubreddits;
+    }
+    public void addJoinedSubreddits(Subreddit subreddit) {
+        joinedSubreddits.add(subreddit);
+    }
+    public void addPost(Post post) {
+        posts.add(post);
+    }
     public void viewProfile() {
         System.out.println("Username: " + username + "EmailAddress: " + emailAddress + "\nPost Karma" + postKarma + "Comment Karma" + commentKarma + "Total Karma" + totalKarma + "\nNumber of Joined Subreddits: " + joinedSubreddits.size() + "\nJoined Subreddits:\n");
         for(Subreddit temp : joinedSubreddits) {
@@ -98,5 +107,21 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
     public void signup(Account account) {
         Reddit.addAccount(account);
         System.out.println("Welcome " + account.getUsername());
+    }
+    public void changeUsername(String newUsername) {
+        this.username = newUsername;
+    }
+    public void changePassword(String newPassword) {
+        this.password = newPassword;
+    }
+    public void changeEmailAddress(String newEmailAddress) {
+        this.emailAddress = newEmailAddress;
+    }
+    public void viewJoinedSubreddits()  {
+        int i = 1;
+        for(Subreddit temp : joinedSubreddits) {
+            temp.viewSubreddit(i);
+            i++;
+        }
     }
 }
