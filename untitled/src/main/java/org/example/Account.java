@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import java.util.Objects;
 public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
     private String username;
     private String password;
@@ -28,6 +28,7 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
         posts = new ArrayList<>();
         comments = new ArrayList<>();
     }
+
     public String getUsername() {
         return username;
     }
@@ -78,7 +79,7 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
             temp.viewComment();
         }
     }
-    public boolean validateEmail(String emailAddress) {
+    public static boolean validateEmail(String emailAddress) {
         String regex = "^[A-Z0-9-_+&*]*@[A-Z0-9-_+&*]*\\.[A-Z0-9-_+&*]*$";
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(emailAddress);
@@ -86,12 +87,16 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
     }
     //EDIT INFORMATION
     public Account login() {
-        for (Account account : Reddit.getAccounts()) {
-            if (account.getUsername() == this.getUsername() && account.getPassword() == this.getPassword() && account.getEmailAddress() == this.getEmailAddress()) {
+        for (Account a : Reddit.getAccounts()) {
+            if (Objects.equals(a.getUsername(), getUsername()) && Objects.equals(a.getPassword(), getPassword()) &&  Objects.equals(a.getEmailAddress(), getEmailAddress())) {
                 System.out.println("You are logged in");
-                return account;
+                return a;
             }
         }
         return null;
+    }
+    public void signup(Account account) {
+        Reddit.addAccount(account);
+        System.out.println("Welcome " + account.getUsername());
     }
 }
