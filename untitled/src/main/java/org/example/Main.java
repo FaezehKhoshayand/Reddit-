@@ -90,12 +90,12 @@ public class Main {
                 Reddit.createSubreddit(title, account);
                 break;
             case 2:
-
+                Reddit.viewAllPosts();
+                break;
             case 3:
                 Reddit.viewAllSubreddits();
                 break;
             case 5:
-                System.out.println("zz");
                 if (account.getJoinedSubreddits().isEmpty()) {
                     System.out.println("In order to post you need to join a subreddit");
                     break;

@@ -51,8 +51,8 @@ public class Post {
     public void setComments(Comment comment) {
         comments.add(comment);
     }
-    public void viewPost() {
-        System.out.println("Subreddit: " + subreddit.getTitle());
+    public void viewPost(int i) {
+        System.out.println(i + ")Subreddit: " + subreddit.getTitle());
         System.out.println("Title: " + title);
         System.out.println("Creator: " + creator.getUsername());
         System.out.println("Body: " + body);

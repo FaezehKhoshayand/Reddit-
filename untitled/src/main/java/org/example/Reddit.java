@@ -56,6 +56,13 @@ public class Reddit {
             i++;
         }
     }
+    public static void viewAllPosts() {
+        int i = 1;
+        for(Post temp : posts) {
+            temp.viewPost(i);
+            i++;
+        }
+    }
     public static void createSubreddit(String title, Account account) {
         Subreddit subreddit = new Subreddit(title, account);
         addSubreddit(subreddit);

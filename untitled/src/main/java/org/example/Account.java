@@ -80,8 +80,10 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
             System.out.println(temp.getTitle());
         }
         System.out.println("Posts:\n");
+        int i = 1;
         for(Post temp : posts) {
-            temp.viewPost();
+            temp.viewPost(i);
+            i++;
         }
         System.out.println("Comments:\n");
         for(Comment temp : comments) {

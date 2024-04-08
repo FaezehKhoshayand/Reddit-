@@ -42,8 +42,10 @@ public class Subreddit {
             System.out.println(temp.getUsername());
         }
         System.out.println("Posts:\n");
+        int u = 1;
         for(Post temp : posts) {
-            temp.viewPost();
+            temp.viewPost(u);
+            u++;
         }
     }
 }
