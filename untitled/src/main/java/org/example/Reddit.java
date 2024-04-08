@@ -33,7 +33,7 @@ public class Reddit {
     public static void addPost(Post post) {
         posts.add(post);
     }
-    public Account searchAccount(String username){
+    public static Account searchAccount(String username){
         for(Account temp : accounts) {
             if(temp.getUsername().equals(username)) {
                 return temp;
@@ -41,7 +41,7 @@ public class Reddit {
         }
         return null;
     }
-    public Subreddit searchSubreddit(String title) {
+    public static Subreddit searchSubreddit(String title) {
         for(Subreddit temp : subreddits) {
             if(temp.getTitle().equals(title)) {
                 return temp;

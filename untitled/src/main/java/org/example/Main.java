@@ -7,7 +7,6 @@ public class Main {
         Account a = new Account("qw", "qw","qwerty@gmail.com");
         Reddit.addAccount(a);
         Reddit.createSubreddit("first subreddit", a);
-
         runMenu();
     }
     public static void runMenu() {
@@ -118,8 +117,33 @@ public class Main {
                 }
                 break;
             case 6:
-                String s;///////////
-                System.out.println("Enter whatever you want to search( ‘r/’ to the subreddit name and ‘u/’ to the username)");
+                System.out.println("Enter whatever you want to search(add ‘r/’ to the subreddit name and ‘u/’ to the username)");
+                Scanner a = new Scanner(System.in);
+                String s = a.nextLine();
+                if (s.charAt(0) != 'r' && s.charAt(0) != 'u') {
+                    System.out.println("add ‘r/’ to the subreddit name and ‘u/’ to the username");
+                    break;
+                }
+                else if (s.charAt(0) == 'r' && s.charAt(1) == '/') {
+                    s = s.substring(2);
+                    Subreddit result = Reddit.searchSubreddit(s);
+                    if (result == null) {
+                        System.out.println("Such a Subreddit does not exist");
+                    }
+                    else {
+                        result.viewSubreddit(1);
+                    }
+                }
+                else if (s.charAt(0) == 'u' && s.charAt(1) == '/') {
+                    s = s.substring(2);
+                    Account result = Reddit.searchAccount(s);
+                    if (result == null) {
+                        System.out.println("Such an Account does not exist");
+                    }
+                    else {
+                        result.viewProfile();
+                    }
+                }
                 break;
             case 8:
                 Scanner sc = new Scanner(System.in);
