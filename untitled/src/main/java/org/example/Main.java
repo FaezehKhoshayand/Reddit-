@@ -1,4 +1,5 @@
 package org.example;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -168,7 +169,18 @@ public class Main {
                 Reddit.viewAllSubreddits();
                 Scanner d = new Scanner(System.in);
                 int c = d.nextInt();
-                account.joinSubreddit(Reddit.getSubreddits().get(c - 1), account);
+                Subreddit x = Reddit.getSubreddits().get(c - 1);
+                boolean flag = true;
+                for(Subreddit temp : account.getJoinedSubreddits()) {
+                    if(Objects.equals(temp,x)) {
+                        System.out.println("You've already joined this Subreddit");
+                        flag = false;
+                    }
+                }
+                if (flag) {
+                    account.joinSubreddit(x, account);
+                    break;
+                }
                 break;
         }
         makeMenu(account);
