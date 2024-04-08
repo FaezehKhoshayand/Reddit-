@@ -126,4 +126,8 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
             i++;
         }
     }
+    public void joinSubreddit(Subreddit subreddit, Account account) {
+        subreddit.setJoinedUsers(account);
+        addJoinedSubreddits(subreddit);
+    }
 }

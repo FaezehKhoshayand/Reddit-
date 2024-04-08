@@ -7,6 +7,7 @@ public class Main {
         Account a = new Account("qw", "qw","qwerty@gmail.com");
         Reddit.addAccount(a);
         Reddit.createSubreddit("first subreddit", a);
+
         runMenu();
     }
     public static void runMenu() {
@@ -95,6 +96,9 @@ public class Main {
             case 3:
                 Reddit.viewAllSubreddits();
                 break;
+            case 4:
+                account.viewProfile();
+                break;
             case 5:
                 if (account.getJoinedSubreddits().isEmpty()) {
                     System.out.println("In order to post you need to join a subreddit");
@@ -135,6 +139,12 @@ public class Main {
                 account.changePassword(password);
                 account.changeUsername(username);
                 account.changeEmailAddress(emailAddress);
+                break;
+            case 9:
+                Reddit.viewAllSubreddits();
+                Scanner d = new Scanner(System.in);
+                int c = d.nextInt();
+                account.joinSubreddit(Reddit.getSubreddits().get(c - 1), account);
                 break;
         }
         makeMenu(account);
