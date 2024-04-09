@@ -14,6 +14,7 @@ public class Post {
         this.creator = creator;
         this.subreddit = subreddit;
         this.karma = 0;
+        comments = new ArrayList<>();
     }
     public String getTitle() {
         return title;
@@ -59,9 +60,14 @@ public class Post {
         System.out.println("Votes: " + karma);
         System.out.println("Comments");
         if (comments != null) {
+            int j = 1;
             for(Comment temp : comments) {
-                temp.viewComment();
+                temp.viewComment(j);
+                j++;
             }
         }
+    }
+    public void addComment(Comment comment) {
+          comments.add(comment);
     }
 }

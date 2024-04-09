@@ -21,8 +21,12 @@ public class Reddit {
     public static ArrayList<Subreddit> getSubreddits() {
         return subreddits;
     }
-    public void createComment() {
-
+    public static ArrayList<Post> getPosts() {
+        return posts;
+    }
+    public static void addComment(Post post, Account account, String body) {
+        Comment comment = new Comment(account, body, post);
+        post.addComment(comment);
     }
     public static void addSubreddit(Subreddit subreddit) {
         subreddits.add(subreddit);

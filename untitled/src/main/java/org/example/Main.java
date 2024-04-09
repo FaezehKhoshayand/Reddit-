@@ -92,7 +92,26 @@ public class Main {
                 break;
             case 2:
                 Reddit.viewAllPosts();
-                break;
+                if(Reddit.getPosts() == null) {
+                    System.out.println("No Posts");
+                }
+                else {
+                    System.out.println("Do you want to post a comment?  1)YES  2)NO");
+                    Scanner d = new Scanner(System.in);
+                    int v = d.nextInt();
+                    if(v == 1) {
+                        System.out.println("Enter the index of the post you want to add comment to");
+                        Scanner t = new Scanner(System.in);
+                        int index = t.nextInt();
+                        System.out.println("body: ");
+                        Scanner e = new Scanner(System.in);
+                        String body = e.nextLine();
+                        Reddit.addComment(Reddit.getPosts().get(index - 1), account, body);
+                    }
+                    else {
+                        break;
+                    }
+                }
             case 3:
                 Reddit.viewAllSubreddits();
                 break;
@@ -106,8 +125,8 @@ public class Main {
                 }
                 else {
                     account.viewJoinedSubreddits();
-                    Scanner d = new Scanner(System.in);
-                    int c = d.nextInt();
+                    Scanner p = new Scanner(System.in);
+                    int c = p.nextInt();
                     System.out.println("Title");
                     Scanner b = new Scanner(System.in);
                     String Title = b.nextLine();
@@ -170,8 +189,8 @@ public class Main {
                 break;
             case 9:
                 Reddit.viewAllSubreddits();
-                Scanner d = new Scanner(System.in);
-                int c = d.nextInt();
+                Scanner k = new Scanner(System.in);
+                int c = k.nextInt();
                 Subreddit x = Reddit.getSubreddits().get(c - 1);
                 boolean flag = true;
                 for(Subreddit temp : account.getJoinedSubreddits()) {

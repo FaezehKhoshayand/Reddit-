@@ -86,8 +86,10 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
             i++;
         }
         System.out.println("Comments:\n");
+        int j = 1;
         for(Comment temp : comments) {
-            temp.viewComment();
+            temp.viewComment(j);
+            j++;
         }
     }
     public static boolean validateEmail(String emailAddress) {

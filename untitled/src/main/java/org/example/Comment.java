@@ -4,11 +4,11 @@ public class Comment {
     private Account creator;
     private String body;
     private Post post;
-    public Comment(Account creator, String body, Post post, int karma) {
+    public Comment(Account creator, String body, Post post) {
         this.creator = creator;
         this.body = body;
         this.post = post;
-        this.karma = karma;
+        this.karma = 0;
     }
     public void setVote(int vote) {
         this.karma = vote;
@@ -34,7 +34,7 @@ public class Comment {
     public Post getPost() {
         return post;
     }
-    public void viewComment() {//TO DO
-        System.out.println("Creator: " + creator + "\nBody: " + body + "\nvote: " + karma );
+    public void viewComment(int i) {
+        System.out.println(i + ")Creator: " + creator.getUsername() + "\nBody: " + body + "\nvote: " + karma );
     }
 }
