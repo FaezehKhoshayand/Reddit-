@@ -146,6 +146,9 @@ public class Main {
                     }
                 }
                 break;
+            case 7:
+                account.viewJoinedPosts();
+                break;
             case 8:
                 Scanner sc = new Scanner(System.in);
                 System.out.println("new username: ");
