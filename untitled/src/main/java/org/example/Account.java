@@ -130,4 +130,11 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
         subreddit.setJoinedUsers(account);
         addJoinedSubreddits(subreddit);
     }
-}
+    public void viewJoinedPosts() {
+        for(Subreddit temp : joinedSubreddits) {
+            for(Post post : temp.getPosts()) {
+                post.viewPost(1);
+            }
+        }
+    }
+ }
