@@ -168,14 +168,14 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
         if (voteType) {
             upVotedPosts.add(post);
             post.setVotes(1);
-            postKarma++;
-            totalKarma++;
+            post.getCreator().postKarma++;
+            post.getCreator().totalKarma++;
         }
         else {
             downVotedPosts.add(post);
             post.setVotes(-1);
-            postKarma--;
-            totalKarma--;
+            post.getCreator().postKarma--;
+            post.getCreator().totalKarma--;
         }
     }
     public void commentKarma(Account account, boolean voteType, Comment comment) {
@@ -194,14 +194,14 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
         if(voteType) {
             upVotedComments.add(comment);
             comment.setVote(1);
-            commentKarma++;
-            totalKarma++;
+            comment.getCreator().commentKarma++;
+            comment.getCreator().totalKarma++;
         }
         else {
             downVotedComments.add(comment);
             comment.setVote(-1);
-            commentKarma--;
-            totalKarma--;
+            comment.getCreator().commentKarma--;
+            comment.getCreator().totalKarma--;
         }
     }
     public void retractVote(Post post) {
@@ -209,8 +209,8 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
             if(temp == post) {
                 upVotedPosts.remove(post);
                 post.setVotes(-1);
-                postKarma--;
-                totalKarma--;
+                post.getCreator().postKarma--;
+                post.getCreator().totalKarma--;
                 return;
             }
         }
@@ -218,8 +218,8 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
             if(temp == post) {
                 downVotedPosts.remove(post);
                 post.setVotes(1);
-                postKarma++;
-                totalKarma++;
+                post.getCreator().postKarma++;
+                post.getCreator().totalKarma++;
                 return;
             }
         }
@@ -230,8 +230,8 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
             if(temp == comment) {
                 upVotedComments.remove(comment);
                 comment.setVote(-1);
-                commentKarma--;
-                totalKarma--;
+                comment.getCreator().commentKarma--;
+                comment.getCreator().totalKarma--;
                 return;
             }
         }
@@ -239,8 +239,8 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
             if(temp == comment) {
                 downVotedComments.remove(comment);
                 comment.setVote(1);
-                commentKarma++;
-                totalKarma++;
+                comment.getCreator().commentKarma++;
+                comment.getCreator().totalKarma++;
                 return;
             }
         }
