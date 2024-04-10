@@ -92,26 +92,75 @@ public class Main {
                 break;
             case 2:
                 Reddit.viewAllPosts();
-                if(Reddit.getPosts() == null) {
+                if(Reddit.getPosts().isEmpty()) {
                     System.out.println("No Posts");
                 }
                 else {
-                    System.out.println("Do you want to post a comment?  1)YES  2)NO");
+                    System.out.println("Select a post by entering its index");
+                    Scanner t = new Scanner(System.in);
+                    int index = t.nextInt();
+                    System.out.println("1)Post Comment  2)Up Vote Post  3)Down Vote Post  4)Up Vote Comment  5)Down Vote Comment  6)Retract Comment Vote  7)Retract Post Vote");
                     Scanner d = new Scanner(System.in);
                     int v = d.nextInt();
                     if(v == 1) {
-                        System.out.println("Enter the index of the post you want to add comment to");
-                        Scanner t = new Scanner(System.in);
-                        int index = t.nextInt();
-                        System.out.println("body: ");
+                        System.out.println("Body of the Comment: ");
                         Scanner e = new Scanner(System.in);
                         String body = e.nextLine();
                         Reddit.addComment(Reddit.getPosts().get(index - 1), account, body);
+                    }
+                    else if (v == 2) {
+                        account.postKarma(account, true, Reddit.getPosts().get(index - 1));
+                    }
+                    else if (v == 3) {
+                        account.postKarma(account, false, Reddit.getPosts().get(index - 1));
+                    }
+                    else if (v == 4) {
+                        if (!Reddit.getPosts().get(index - 1).getComments().isEmpty()) {
+                            int j = 1;
+                            for(Comment temp : Reddit.getPosts().get(index - 1).getComments()) {
+                                temp.viewComment(j);
+                                j++;
+                            }
+                            System.out.println("Select a comment by entering its index");
+                            Scanner h = new Scanner(System.in);
+                            int inx = h.nextInt();
+                            account.commentKarma(account, true, Reddit.getPosts().get(index - 1).getComments().get(inx - 1));
+                        }
+                    }
+                    else if (v == 5) {
+                        if (!Reddit.getPosts().get(index - 1).getComments().isEmpty()) {
+                            int i = 1;
+                            for(Comment temp : Reddit.getPosts().get(index - 1).getComments()) {
+                                temp.viewComment(i);
+                                i++;
+                            }
+                            System.out.println("Select a comment by entering its index");
+                            Scanner h = new Scanner(System.in);
+                            int inx = h.nextInt();
+                            account.commentKarma(account, false, Reddit.getPosts().get(index - 1).getComments().get(inx - 1));
+                        }
+                    }
+                    else if (v == 6) {
+                        if (!Reddit.getPosts().get(index - 1).getComments().isEmpty()) {
+                            int i = 1;
+                            for(Comment temp : Reddit.getPosts().get(index - 1).getComments()) {
+                                temp.viewComment(i);
+                                i++;
+                            }
+                            System.out.println("Select a comment by entering its index");
+                            Scanner h = new Scanner(System.in);
+                            int inx = h.nextInt();
+                            account.retractVote(Reddit.getPosts().get(index - 1).getComments().get(inx - 1));
+                        }
+                    }
+                    else if (v == 7) {
+                        account.retractVote(Reddit.getPosts().get(index - 1));
                     }
                     else {
                         break;
                     }
                 }
+                break;
             case 3:
                 Reddit.viewAllSubreddits();
                 break;

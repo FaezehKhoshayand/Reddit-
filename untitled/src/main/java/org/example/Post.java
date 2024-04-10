@@ -44,7 +44,7 @@ public class Post {
         return karma;
     }
     public void setVotes(int karma) {
-        this.karma = karma;
+        this.karma += karma;
     }
     public ArrayList<Comment> getComments() {
         return comments;

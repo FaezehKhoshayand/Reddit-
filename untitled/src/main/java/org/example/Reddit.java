@@ -27,6 +27,7 @@ public class Reddit {
     public static void addComment(Post post, Account account, String body) {
         Comment comment = new Comment(account, body, post);
         post.addComment(comment);
+        account.addComment(comment);
     }
     public static void addSubreddit(Subreddit subreddit) {
         subreddits.add(subreddit);
@@ -79,4 +80,5 @@ public class Reddit {
         account.addPost(post);
         subreddit.setPosts(post);
     }
+
 }

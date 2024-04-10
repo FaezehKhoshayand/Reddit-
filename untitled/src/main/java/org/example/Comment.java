@@ -11,7 +11,7 @@ public class Comment {
         this.karma = 0;
     }
     public void setVote(int vote) {
-        this.karma = vote;
+        this.karma += vote;
     }
     public int getVote() {
         return karma;

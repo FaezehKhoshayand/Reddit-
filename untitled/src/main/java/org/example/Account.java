@@ -16,6 +16,11 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
     private ArrayList<Subreddit> joinedSubreddits;////
     private ArrayList<Post> posts;////
     private ArrayList<Comment> comments;
+    private ArrayList<Comment> upVotedComments;
+    private ArrayList<Comment> downVotedComments;
+    private ArrayList<Post> upVotedPosts;
+    private ArrayList<Post> downVotedPosts;
+
     public Account(String username, String password, String emailAddress) {
         this.username = username;
         this.password = password;
@@ -27,6 +32,11 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
         joinedSubreddits = new ArrayList<>();
         posts = new ArrayList<>();
         comments = new ArrayList<>();
+        upVotedComments = new ArrayList<>();
+        downVotedComments = new ArrayList<>();
+        upVotedPosts = new ArrayList<>();
+        downVotedPosts = new ArrayList<>();
+
     }
 
     public String getUsername() {
@@ -74,18 +84,21 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
     public void addPost(Post post) {
         posts.add(post);
     }
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
     public void viewProfile() {
-        System.out.println("Username: " + username + "EmailAddress: " + emailAddress + "\nPost Karma" + postKarma + "Comment Karma" + commentKarma + "Total Karma" + totalKarma + "\nNumber of Joined Subreddits: " + joinedSubreddits.size() + "\nJoined Subreddits:\n");
+        System.out.println("Username: " + username + "\nEmailAddress: " + emailAddress + "\nPost Karma: " + postKarma + "- Comment Karma: " + commentKarma + "- Total Karma: " + totalKarma + "\nNumber of Joined Subreddits: " + joinedSubreddits.size() + "\nJoined Subreddits:");
         for(Subreddit temp : joinedSubreddits) {
             System.out.println(temp.getTitle());
         }
-        System.out.println("Posts:\n");
+        System.out.println("Posts Created by the User:\n");
         int i = 1;
         for(Post temp : posts) {
             temp.viewPost(i);
             i++;
         }
-        System.out.println("Comments:\n");
+        System.out.println("Comments Posted by the User:\n");
         int j = 1;
         for(Comment temp : comments) {
             temp.viewComment(j);
@@ -138,5 +151,99 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
                 post.viewPost(1);
             }
         }
+    }
+    public void postKarma(Account account, boolean voteType, Post post) {
+        for(Post temp : upVotedPosts) {
+            if(temp == post) {
+              System.out.println("You have upVoted before;");
+              return;
+            }
+        }
+        for(Post temp : downVotedPosts) {
+            if(temp == post) {
+                System.out.println("You have downVoted before;");
+                return;
+            }
+        }
+        if (voteType) {
+            upVotedPosts.add(post);
+            post.setVotes(1);
+            postKarma++;
+            totalKarma++;
+        }
+        else {
+            downVotedPosts.add(post);
+            post.setVotes(-1);
+            postKarma--;
+            totalKarma--;
+        }
+    }
+    public void commentKarma(Account account, boolean voteType, Comment comment) {
+        for(Comment temp : upVotedComments) {
+            if(temp == comment) {
+                System.out.println("You have upVoted before;");
+                return;
+            }
+        }
+        for(Comment temp : downVotedComments) {
+            if(temp == comment) {
+                System.out.println("You have downVoted before;");
+                return;
+            }
+        }
+        if(voteType) {
+            upVotedComments.add(comment);
+            comment.setVote(1);
+            commentKarma++;
+            totalKarma++;
+        }
+        else {
+            downVotedComments.add(comment);
+            comment.setVote(-1);
+            commentKarma--;
+            totalKarma--;
+        }
+    }
+    public void retractVote(Post post) {
+        for(Post temp : upVotedPosts) {
+            if(temp == post) {
+                upVotedPosts.remove(post);
+                post.setVotes(-1);
+                postKarma--;
+                totalKarma--;
+                return;
+            }
+        }
+        for(Post temp : downVotedPosts) {
+            if(temp == post) {
+                downVotedPosts.remove(post);
+                post.setVotes(1);
+                postKarma++;
+                totalKarma++;
+                return;
+            }
+        }
+        System.out.println("You haven't voted");
+    }
+    public void retractVote(Comment comment) {
+        for(Comment temp : upVotedComments) {
+            if(temp == comment) {
+                upVotedComments.remove(comment);
+                comment.setVote(-1);
+                commentKarma--;
+                totalKarma--;
+                return;
+            }
+        }
+        for(Comment temp : downVotedComments) {
+            if(temp == comment) {
+                downVotedComments.remove(comment);
+                comment.setVote(1);
+                commentKarma++;
+                totalKarma++;
+                return;
+            }
+        }
+        System.out.println("You haven't voted");
     }
  }
