@@ -9,10 +9,6 @@ public class Reddit {
     public static ArrayList<Account> getAccounts() {
         return accounts;
     }
-    ////
-    ////
-    ////
-    ////
     public Reddit() {
         subreddits = new ArrayList<>();
         accounts = new ArrayList<>();
