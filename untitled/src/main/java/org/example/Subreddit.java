@@ -11,6 +11,12 @@ public class Subreddit {
         this.title = title;
         admins.add(admin);
     }
+    public ArrayList<Account> getAdmins() {
+        return admins;
+    }
+    public void addAdmins(Account admin) {
+        admins.add(admin);
+    }
     public void setTitle(String title) {
         this.title = title;
     }

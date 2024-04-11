@@ -38,7 +38,9 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
         downVotedPosts = new ArrayList<>();
 
     }
-
+    public ArrayList<Post> getPosts() {
+        return posts;
+    }
     public String getUsername() {
         return username;
     }
@@ -111,7 +113,6 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
         Matcher matcher = pattern.matcher(emailAddress);
         return matcher.find();
     }
-    //EDIT INFORMATION
     public Account login() {
         for (Account a : Reddit.getAccounts()) {
             if (Objects.equals(a.getUsername(), getUsername()) && Objects.equals(a.getPassword(), getPassword()) &&  Objects.equals(a.getEmailAddress(), getEmailAddress())) {
@@ -245,5 +246,13 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
             }
         }
         System.out.println("You haven't voted");
+    }
+    public static boolean usernameIsUsed(String username) {
+        for (Account temp : Reddit.getAccounts()) {
+            if(username == temp.getUsername()) {
+                return true;
+            }
+        }
+        return false;
     }
  }
