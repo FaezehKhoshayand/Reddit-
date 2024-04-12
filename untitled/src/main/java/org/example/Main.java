@@ -92,7 +92,7 @@ public class Main {
     public static void makeMenu(Account account) {
         boolean hasLoggedOut = false;
         while(!hasLoggedOut) {
-            System.out.println("Enter your command\n1)Create Subreddit  2)View All Posts  3)View All Subreddits  4)View All Profiles  5)Create Post  6)Search  7)View TimeLine 8)Change Username & Password  9)Join Subreddit  10)Log Out");
+            System.out.println("Enter your command\n1)Create Subreddit  2)View All Posts  3)View All Subreddits  4)View All Profiles  5)Create Post  6)Search  7)View TimeLine 8)Change Username & Password  9)Join Subreddit  10)Log Out  11)View Saved Posts");
             Scanner scanner = new Scanner(System.in);
             int cmd = scanner.nextInt();
             switch(cmd) {
@@ -120,7 +120,7 @@ public class Main {
                             System.out.println("Select a post by entering its index");
                             Scanner t = new Scanner(System.in);
                             int index = t.nextInt();
-                            System.out.println("1)Post Comment  2)Up Vote Post  3)Down Vote Post  4)Up Vote Comment  5)Down Vote Comment  6)Retract Comment Vote  7)Retract Post Vote  8)View Comment Poster's Profile  9)View Post Creator's Profile  10)Join the Subreddit related to the Post  11)return");
+                            System.out.println("1)Post Comment  2)Up Vote Post  3)Down Vote Post  4)Up Vote Comment  5)Down Vote Comment  6)Retract Comment Vote  7)Retract Post Vote  8)View Comment Poster's Profile  9)View Post Creator's Profile  10)Join the Subreddit related to the Post  11)Save Post  12)return");
                             Scanner d = new Scanner(System.in);
                             int v = d.nextInt();
                             if (v == 1) {
@@ -198,7 +198,13 @@ public class Main {
                                 if (flag) {
                                     account.joinSubreddit(Reddit.getPosts().get(index - 1).getSubreddit(), account);
                                 }
-                            } else {
+                            }
+                            else if (v == 11) {
+                                if(!account.getSavedPosts().contains(Reddit.getPosts().get(index - 1))) {
+                                    account.setSavedPosts(Reddit.getPosts().get(index - 1));
+                                }
+                            }
+                            else {
                                 break;
                             }
                         }
@@ -301,6 +307,14 @@ public class Main {
                                     int l = k.nextInt();
                                     if (l == 1) {
                                         account.joinSubreddit(Reddit.getSubreddits().get(o - 1), account);
+                                    }
+                                }
+                                if (hasJoinedSub && !Objects.equals(account,Reddit.getSubreddits().get(o - 1).getCreator())) {
+                                    System.out.println("Would you like to leave this Subreddit?  1)YES  2)NO");
+                                    Scanner k = new Scanner(System.in);
+                                    int l = k.nextInt();
+                                    if (l == 1) {
+                                        account.getJoinedSubreddits().remove(Reddit.getSubreddits().get(o - 1));
                                     }
                                 }
                                 if (Reddit.getSubreddits().get(o - 1).getPosts().isEmpty()) {
@@ -570,6 +584,23 @@ public class Main {
                     break;
                 case 10:
                     hasLoggedOut = true;
+                    break;
+                case 11:
+                    account.viewSavedPosts();
+                    if (account.getSavedPosts().isEmpty()) {
+                        System.out.println("You haven't saved a post");
+                    }
+                    else {
+                        System.out.println("Would you like to remove a post from saved posts? 1)YES  2)NO");
+                        Scanner e = new Scanner(System.in);
+                        int m = e.nextInt();
+                        if(m == 1) {
+                            System.out.println("Enter the index of the post you are willing to remove");
+                            Scanner z = new Scanner(System.in);
+                            int qw = z.nextInt();
+                            account.getSavedPosts().remove(account.getSavedPosts().get(qw - 1));
+                        }
+                    }
                     break;
                 default:
                     break;

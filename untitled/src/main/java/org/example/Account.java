@@ -20,6 +20,7 @@ public class Account {
     private ArrayList<Comment> downVotedComments;
     private ArrayList<Post> upVotedPosts;
     private ArrayList<Post> downVotedPosts;
+    private ArrayList<Post> savedPosts;
 
     public Account(String username, String password, String emailAddress) {
         this.username = username;
@@ -36,6 +37,7 @@ public class Account {
         downVotedComments = new ArrayList<>();
         upVotedPosts = new ArrayList<>();
         downVotedPosts = new ArrayList<>();
+        savedPosts = new ArrayList<>();
 
     }
     public ArrayList<Post> getPosts() {
@@ -89,25 +91,43 @@ public class Account {
     public void addComment(Comment comment) {
         comments.add(comment);
     }
+    public ArrayList<Post> getSavedPosts() {
+        return savedPosts;
+    }
+    public void setSavedPosts(Post post) {
+        savedPosts.add(post);
+    }
     public ArrayList<Comment> getComment() {
         return comments;
     }
     public void viewProfile() {
-        System.out.println("Username: " + username + "\nEmailAddress: " + emailAddress + "\nPost Karma: " + postKarma + "- Comment Karma: " + commentKarma + "- Total Karma: " + totalKarma + "\nNumber of Joined Subreddits: " + joinedSubreddits.size() + "\nJoined Subreddits:");
+        System.out.println("Username: " + username + "\nEmailAddress: " + emailAddress + "\nPost Karma: " + postKarma + " Comment Karma: " + commentKarma + " Total Karma: " + totalKarma + "\nNumber of Joined Subreddits: " + joinedSubreddits.size() + "\nJoined Subreddits:");
         for(Subreddit temp : joinedSubreddits) {
             System.out.println(temp.getTitle());
         }
-        System.out.println("Posts Created by the User:\n");
+        System.out.println("Posts Created by the User:");
         int i = 1;
         for(Post temp : posts) {
             temp.viewPost(i);
             i++;
         }
-        System.out.println("Comments Posted by the User:\n");
+        System.out.println("Comments Posted by the User:");
         int j = 1;
         for(Comment temp : comments) {
             temp.viewComment(j);
             j++;
+        }
+        System.out.println("Posts upvoted by the user:");
+        int k = 1;
+        for (Post temp : upVotedPosts) {
+            temp.viewPost(k);
+            k++;
+        }
+        System.out.println("Comments upvoted by the user");
+        int l = 1;
+        for (Comment temp : upVotedComments) {
+            temp.viewComment(l);
+            l++;
         }
     }
     public static boolean validateEmail(String emailAddress) {
@@ -265,5 +285,12 @@ public class Account {
             }
         }
         return false;
+    }
+    public void viewSavedPosts() {
+        int i = 1;
+        for (Post post : savedPosts) {
+            post.viewPost(i);
+            i++;
+        }
     }
  }
