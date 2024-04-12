@@ -10,6 +10,9 @@ public class Comment {
         this.post = post;
         this.karma = 0;
     }
+    public int getKarma() {
+        return karma;
+    }
     public void setVote(int vote) {
         this.karma += vote;
     }

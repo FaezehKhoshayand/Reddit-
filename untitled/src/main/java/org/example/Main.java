@@ -64,12 +64,22 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("username: ");
         String username = scanner.nextLine();
+        while(Account.usernameIsUsed(username)){
+            scanner = new Scanner(System.in);
+            System.out.println("This username is already taken\nnew username: ");
+            username = scanner.nextLine();
+        }
         System.out.println("password: ");
         scanner = new Scanner(System.in);
         String password = scanner.nextLine();
         System.out.println("EmailAddress: ");
         scanner = new Scanner(System.in);
         String emailAddress = scanner.nextLine();
+        while(Account.emailIsUsed(emailAddress)) {
+            System.out.println("An account has already signed up with this emailAddress\nNew EmailAddress: ");
+            scanner = new Scanner(System.in);
+            emailAddress = scanner.nextLine();
+        }
         while(!Account.validateEmail(emailAddress)) {
             System.out.println("Not a valid emailAddress\nNew EmailAddress: ");
             scanner = new Scanner(System.in);
@@ -78,7 +88,6 @@ public class Main {
         Account account = new Account(username, password, emailAddress);
         account.signup(account);
         makeMenu(account);
-
     }
     public static void makeMenu(Account account) {
         boolean hasLoggedOut = false;
@@ -91,6 +100,14 @@ public class Main {
                     Scanner as = new Scanner(System.in);
                     System.out.println("Enter a title for the subreddit");
                     String title = as.nextLine();
+                    while(Subreddit.titleIsUsed(title)) {
+                        System.out.println("A subreddit with this title exists.\nNew Title:\nEnter 1 to return menu");
+                        as = new Scanner(System.in);
+                        title = as.nextLine();
+                        if(title.equals("1")) {
+                            makeMenu(account);
+                        }
+                    }
                     Reddit.createSubreddit(title, account);
                     break;
                 case 2:
@@ -220,21 +237,47 @@ public class Main {
                                     for (Post temp : Reddit.getSubreddits().get(o - 1).getPosts()) {
                                         temp.viewPost(1);
                                     }
+                                    if(Reddit.getSubreddits().get(o - 1).getPosts().isEmpty()) {
+                                        System.out.println("No Posts");
+                                        break;
+                                    }
                                     Scanner c = new Scanner(System.in);
                                     int x = c.nextInt();
                                     Post temp = Reddit.getSubreddits().get(o - 1).getPosts().get(x - 1);
+                                    temp.getCreator().setPostKarma(-temp.getKarma());
+                                    temp.getCreator().setTotalKarma();
+                                    for(Comment comment : Reddit.getSubreddits().get(o - 1).getPosts().get(x - 1).getComments()) {
+                                        comment.getCreator().setCommentKarma(-comment.getKarma());
+                                        comment.getCreator().setTotalKarma();
+                                    }
+                                    for (Comment comment : temp.getComments()) {
+                                        Account creator = comment.getCreator();
+                                        creator.getComment().remove(comment);
+                                    }
                                     temp.getCreator().getPosts().remove(temp);
                                     Reddit.getSubreddits().get(o - 1).getPosts().remove(temp);
                                     Reddit.getPosts().remove(temp);
                                 }
                                 else if(b == 2) {
+                                    System.out.println("-All the Members-");
+                                    int i = 1;
                                     for (Account temp : Reddit.getSubreddits().get(o - 1).getJoinedUsers()) {
+                                        System.out.print(i + ")");
                                         temp.viewProfile();
+                                        i++;
                                     }
                                     Scanner c = new Scanner(System.in);
                                     int x = c.nextInt();
                                     Account temp = Reddit.getSubreddits().get(o - 1).getJoinedUsers().get(x - 1);
-                                    if (Reddit.getSubreddits().get(o - 1).getJoinedUsers().contains(temp)) {
+                                    if(Reddit.getSubreddits().get(o - 1).getAdmins().contains(temp) && Objects.equals(account, Reddit.getSubreddits().get(o - 1).getCreator()) && !Objects.equals(temp, account)) {
+                                        Reddit.getSubreddits().get(o - 1).getJoinedUsers().remove(temp);
+                                        temp.getJoinedSubreddits().remove(Reddit.getSubreddits().get(o - 1));
+                                        Reddit.getSubreddits().get(o - 1).getAdmins().remove(temp);
+                                    }
+                                    else if (Reddit.getSubreddits().get(o - 1).getAdmins().contains(temp) && Objects.equals(temp, account)) {
+                                        System.out.println("You cannot remove an admin unless you are the creator of the subreddit");
+                                    }
+                                    else {
                                         Reddit.getSubreddits().get(o - 1).getJoinedUsers().remove(temp);
                                         temp.getJoinedSubreddits().remove(Reddit.getSubreddits().get(o - 1));
                                     }
@@ -245,7 +288,13 @@ public class Main {
                                     }
                                     Scanner c = new Scanner(System.in);
                                     int x = c.nextInt();
-                                    Reddit.getSubreddits().get(o - 1).addAdmins(Reddit.getSubreddits().get(o - 1).getJoinedUsers().get(x - 1));
+                                    Account temp = Reddit.getSubreddits().get(o - 1).getJoinedUsers().get(x - 1);
+                                    if(Reddit.getSubreddits().get(o - 1).getAdmins().contains(temp)) {
+                                        System.out.println("This user is an admin");
+                                    }
+                                    else {
+                                        Reddit.getSubreddits().get(o - 1).addAdmins(Reddit.getSubreddits().get(o - 1).getJoinedUsers().get(x - 1));
+                                    }
                                 }
                                 else {
                                     break;

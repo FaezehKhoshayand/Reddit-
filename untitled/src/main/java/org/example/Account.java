@@ -5,7 +5,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Objects;
-public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
+public class Account {
     private String username;
     private String password;
     private String emailAddress;
@@ -13,8 +13,8 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
     private int postKarma;
     private int commentKarma;
     private UUID id;
-    private ArrayList<Subreddit> joinedSubreddits;////
-    private ArrayList<Post> posts;////
+    private ArrayList<Subreddit> joinedSubreddits;
+    private ArrayList<Post> posts;
     private ArrayList<Comment> comments;
     private ArrayList<Comment> upVotedComments;
     private ArrayList<Comment> downVotedComments;
@@ -66,13 +66,13 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
         this.totalKarma = postKarma + commentKarma;
     }
     public void setPostKarma(int postKarma) {
-        this.postKarma = postKarma;
+        this.postKarma += postKarma;
     }
     public int getPostKarma() {
         return postKarma;
     }
     public void setCommentKarma(int commentKarma) {
-        this.commentKarma = commentKarma;
+        this.commentKarma += commentKarma;
     }
     public int getCommentKarma() {
         return commentKarma;
@@ -88,6 +88,9 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
     }
     public void addComment(Comment comment) {
         comments.add(comment);
+    }
+    public ArrayList<Comment> getComment() {
+        return comments;
     }
     public void viewProfile() {
         System.out.println("Username: " + username + "\nEmailAddress: " + emailAddress + "\nPost Karma: " + postKarma + "- Comment Karma: " + commentKarma + "- Total Karma: " + totalKarma + "\nNumber of Joined Subreddits: " + joinedSubreddits.size() + "\nJoined Subreddits:");
@@ -249,7 +252,15 @@ public class Account {//TO DO CHECK KARMA VALUES IN REDDIT
     }
     public static boolean usernameIsUsed(String username) {
         for (Account temp : Reddit.getAccounts()) {
-            if(username == temp.getUsername()) {
+            if(temp.getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean emailIsUsed(String emailAddress) {
+        for (Account temp : Reddit.getAccounts()) {
+            if(temp.getEmailAddress().equals(emailAddress)) {
                 return true;
             }
         }

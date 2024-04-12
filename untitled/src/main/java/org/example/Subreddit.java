@@ -4,12 +4,17 @@ import java.util.ArrayList;
 
 public class Subreddit {
     private String title;
+    private Account creator;
     private ArrayList<Account> admins = new ArrayList<>();
     private ArrayList<Account> joinedUsers = new ArrayList<>();
     private ArrayList<Post> posts = new ArrayList<>();
     public Subreddit(String title, Account admin) {
         this.title = title;
         admins.add(admin);
+        creator = admin;
+    }
+    public Account getCreator() {
+        return creator;
     }
     public ArrayList<Account> getAdmins() {
         return admins;
@@ -50,5 +55,13 @@ public class Subreddit {
             temp.viewPost(u);
             u++;
         }
+    }
+    public static boolean titleIsUsed(String title) {
+        for(Subreddit temp : Reddit.getSubreddits()) {
+            if(temp.getTitle().equals(title)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

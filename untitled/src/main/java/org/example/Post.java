@@ -16,6 +16,9 @@ public class Post {
         this.karma = 0;
         comments = new ArrayList<>();
     }
+    public int getKarma() {
+        return karma;
+    }
     public String getTitle() {
         return title;
     }
