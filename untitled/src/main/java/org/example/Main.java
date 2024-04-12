@@ -92,7 +92,7 @@ public class Main {
     public static void makeMenu(Account account) {
         boolean hasLoggedOut = false;
         while(!hasLoggedOut) {
-            System.out.println("Enter your command\n1)Create Subreddit  2)View All Posts  3)View All Subreddits  4)View All Profiles  5)Create Post  6)Search  7)View TimeLine 8)Change Username & Password  9)Join Subreddit  10)Log Out  11)View Saved Posts");
+            System.out.println("Enter your command\n1)Create Subreddit  2)View All Posts  3)View All Subreddits  4)View All Profiles  5)Create Post  6)Search  7)View TimeLine 8)Change Username & Password  9)Join Subreddit  10)Log Out  11)View Saved Posts  12)Chat");
             Scanner scanner = new Scanner(System.in);
             int cmd = scanner.nextInt();
             switch(cmd) {
@@ -602,6 +602,25 @@ public class Main {
                         }
                     }
                     break;
+//                case 12:
+//                    Chat chat = new Chat();
+//                    System.out.println("Enter the name of the receiver");
+//                    Scanner e = new Scanner(System.in);
+//                    String receiver = e.nextLine();
+//                    System.out.println("Enter the text:");
+//                    Scanner n = new Scanner(System.in);
+//                    String text = n.nextLine();
+//                    for (Account temp : Reddit.getAccounts()) {
+//                        if (temp.getUsername().equals(receiver)) {
+//                            Message message = new Message(account, temp, text);
+//                            chat.addMessage(message);
+//                            Chat.displayChat(account,temp);
+//                        }
+//                        else {
+//                            System.out.println("Such an account does not exist");
+//                            break;
+//                        }
+//                    }
                 default:
                     break;
             }
