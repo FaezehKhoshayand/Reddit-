@@ -73,4 +73,12 @@ public class Post {
     public void addComment(Comment comment) {
           comments.add(comment);
     }
+    public static Post getPostBy(String title, String username) {
+        for (Post temp : Reddit.getPosts()) {
+            if (temp.getTitle().equals(title) && temp.getCreator().getUsername().equals(username)) {
+                return temp;
+            }
+        }
+        return null;
+    }
 }
