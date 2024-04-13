@@ -611,25 +611,21 @@ public class Main {
                     System.out.println("Enter the index of receiver:");
                     Scanner b = new Scanner(System.in);
                     int receiver = b.nextInt();
-                    if (account.getUsername().equals(receiver )) {
+                    if (Objects.equals(account,Reddit.getAccounts().get(receiver - 1))) {
                         System.out.println("You can't chat with yourself");
                         break;
                     }
+                    Chat chat = Chat.getChat(account, Reddit.getAccounts().get(receiver - 1));
+                    if (chat == null) {
+                        chat = new Chat(account, Reddit.getAccounts().get(receiver - 1));
+                        Reddit.getChats().add(chat);
+                    }
+                    chat.displayChat();
                     System.out.println("Enter the text:");
                     Scanner n = new Scanner(System.in);
                     String text = n.nextLine();
-                    Chat chat = new Chat(account, Reddit.getAccounts().get(receiver - 1));
-                    for (Chat temp : Reddit.getChats()) {
-                        if (temp.getAccounts().contains(account) && temp.getAccounts().contains(Reddit.getAccounts().get(receiver - 1))) {
-                            chat = temp;
-                        }
-                        else {
-                            Reddit.getChats().add(chat);
-                        }
-                    }
                     Message message = new Message(account, Reddit.getAccounts().get(receiver - 1), text);
                     chat.addMessage(message);
-                    chat.displayChat();
                 default:
                     break;
             }

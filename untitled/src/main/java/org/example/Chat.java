@@ -30,4 +30,12 @@ public class Chat {
             System.out.println(temp.getSender().getUsername() + ":" + temp.getMessage());
         }
     }
+    public static Chat getChat(Account a, Account b) {
+        for (Chat temp : Reddit.getChats()) {
+            if (temp.getAccounts().contains(a) && temp.getAccounts().contains(b)) {
+                return temp;
+            }
+        }
+        return null;
+    }
 }
