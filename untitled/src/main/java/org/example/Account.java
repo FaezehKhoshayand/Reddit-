@@ -23,6 +23,7 @@ public class Account {
     private ArrayList<Post> upVotedPosts;
     private ArrayList<Post> downVotedPosts;
     private ArrayList<Post> savedPosts;
+    private ArrayList<Account> followedAccounts;
 
     //Constructor
     public Account(String username, String password, String emailAddress) {
@@ -41,10 +42,17 @@ public class Account {
         upVotedPosts = new ArrayList<>();
         downVotedPosts = new ArrayList<>();
         savedPosts = new ArrayList<>();
+        followedAccounts = new ArrayList<>();
 
     }
 
     //Setters and Getters
+    public ArrayList<Account> getFollowedAccounts() {
+        return followedAccounts;
+    }
+    public void addFollowedAccounts(Account account) {
+        followedAccounts.add(account);
+    }
     public ArrayList<Post> getPosts() {
         return posts;
     }

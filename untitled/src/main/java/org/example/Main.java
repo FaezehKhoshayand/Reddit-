@@ -92,7 +92,7 @@ public class Main {
     public static void makeMenu(Account account) {//Main Options
         boolean hasLoggedOut = false;
         while(!hasLoggedOut) {
-            System.out.println("Enter your command\n1)Create Subreddit  2)View All Posts  3)View All Subreddits  4)View All Profiles  5)Create Post  6)Search  7)View TimeLine 8)Change Username & Password  9)Join Subreddit  10)Log Out  11)View Saved Posts  12)Chat");
+            System.out.println("Enter your command\n1)Create Subreddit  2)View All Posts  3)View All Subreddits  4)View All Profiles  5)Create Post  6)Search  7)View TimeLine 8)Change Username & Password  9)Join Subreddit  10)Log Out  11)View Saved Posts  12)Chat  13)View followed accounts  14)View posts created by my followings");
             Scanner scanner = new Scanner(System.in);
             int cmd = scanner.nextInt();
             switch(cmd) {
@@ -400,6 +400,20 @@ public class Main {
                     for(Account temp : Reddit.getAccounts()) {
                         temp.viewProfile();
                     }
+                    System.out.println("Would you like to follow anyone?  1)YES  2)NO");
+                    Scanner k = new Scanner(System.in);
+                    int g = k.nextInt();
+                    if (g == 1) {
+                        System.out.println("Enter the index of the user you want to follow");
+                        Scanner i = new Scanner(System.in);
+                        int u = i.nextInt();
+                        if(account.getFollowedAccounts().contains(Reddit.getAccounts().get(u - 1))) {
+                            System.out.println("You've followed this account before");
+                        }
+                        else if (!Objects.equals(account, Reddit.getAccounts().get(u - 1))){
+                            account.addFollowedAccounts(Reddit.getAccounts().get(u - 1));
+                        }
+                    }
                     break;
                 case 5://Create post
                     if (account.getJoinedSubreddits().isEmpty()) {
@@ -450,13 +464,13 @@ public class Main {
                     break;
                 case 7://View timeline
                     account.viewJoinedPosts();
-                    int k = 0;
+                    int r = 0;
                     for(Subreddit temp : account.getJoinedSubreddits()) {
                         if (!temp.getPosts().isEmpty()) {
-                            k++;
+                            r++;
                         }
                     }
-                    if(k != 0) {
+                    if(r != 0) {
                         System.out.println("Enter the title of the post");
                         Scanner t = new Scanner(System.in);
                         String Title = t.nextLine();
@@ -626,6 +640,19 @@ public class Main {
                     String text = n.nextLine();
                     Message message = new Message(account, Reddit.getAccounts().get(receiver - 1), text);
                     chat.addMessage(message);
+                case 13:
+                    for(Account temp : account.getFollowedAccounts()) {
+                        temp.viewProfile();
+                    }
+                    break;
+                case 14:
+                    for (Account temp : account.getFollowedAccounts()) {
+                        int h = 1;
+                        for (Post tempp : temp.getPosts()) {
+                            tempp.viewPost(h);
+                            h++;
+                        }
+                    }
                 default:
                     break;
             }
