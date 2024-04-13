@@ -23,3 +23,5 @@ This platform allows you to log in, create Subreddit and posts, post comments un
 <br>version6)Post comment
 <br>version7)Voting and Retracting vote
 <br>version8)Admin managements
+<br>version9)Save posts
+<br>version10)follow accounts
