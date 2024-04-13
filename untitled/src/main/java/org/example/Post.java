@@ -1,13 +1,16 @@
 package org.example;
 import java.util.ArrayList;
 public class Post {
+
+    //Fields
     private String title;
     private String body;
-    //tags or flairs
     private Account creator;
     private Subreddit subreddit;
     private int karma;
     private ArrayList<Comment> comments;
+
+    //Constructor
     public Post(String title, String body, Account creator, Subreddit subreddit) {
         this.title = title;
         this.body = body;
@@ -16,6 +19,8 @@ public class Post {
         this.karma = 0;
         comments = new ArrayList<>();
     }
+
+    //Setters nd Getters
     public int getKarma() {
         return karma;
     }
@@ -55,6 +60,8 @@ public class Post {
     public void setComments(Comment comment) {
         comments.add(comment);
     }
+
+    //View Post
     public void viewPost(int i) {
         System.out.println(i + ")Subreddit: " + subreddit.getTitle());
         System.out.println("Title: " + title);
@@ -70,9 +77,13 @@ public class Post {
             }
         }
     }
+
+    //Add comments
     public void addComment(Comment comment) {
           comments.add(comment);
     }
+
+    //Return post by passing the title and creator of the post
     public static Post getPostBy(String title, String username) {
         for (Post temp : Reddit.getPosts()) {
             if (temp.getTitle().equals(title) && temp.getCreator().getUsername().equals(username)) {

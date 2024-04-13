@@ -6,6 +6,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Objects;
 public class Account {
+
+    //Fields
     private String username;
     private String password;
     private String emailAddress;
@@ -22,6 +24,7 @@ public class Account {
     private ArrayList<Post> downVotedPosts;
     private ArrayList<Post> savedPosts;
 
+    //Constructor
     public Account(String username, String password, String emailAddress) {
         this.username = username;
         this.password = password;
@@ -40,6 +43,8 @@ public class Account {
         savedPosts = new ArrayList<>();
 
     }
+
+    //Setters and Getters
     public ArrayList<Post> getPosts() {
         return posts;
     }
@@ -100,6 +105,8 @@ public class Account {
     public ArrayList<Comment> getComment() {
         return comments;
     }
+
+    //View a profile
     public void viewProfile() {
         System.out.println("Username: " + username + "\nEmailAddress: " + emailAddress + "\nPost Karma: " + postKarma + " Comment Karma: " + commentKarma + " Total Karma: " + totalKarma + "\nNumber of Joined Subreddits: " + joinedSubreddits.size() + "\nJoined Subreddits:");
         for(Subreddit temp : joinedSubreddits) {
@@ -130,12 +137,16 @@ public class Account {
             l++;
         }
     }
+
+    //Email validation
     public static boolean validateEmail(String emailAddress) {
         String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(emailAddress);
         return matcher.find();
     }
+
+    //Login
     public Account login() {
         for (Account a : Reddit.getAccounts()) {
             if (Objects.equals(a.getUsername(), getUsername()) && Objects.equals(a.getPassword(), getPassword()) &&  Objects.equals(a.getEmailAddress(), getEmailAddress())) {
@@ -145,10 +156,14 @@ public class Account {
         }
         return null;
     }
+
+    //Signup
     public void signup(Account account) {
         Reddit.addAccount(account);
         System.out.println("Welcome " + account.getUsername());
     }
+
+    //User settings
     public void changeUsername(String newUsername) {
         this.username = newUsername;
     }
@@ -158,6 +173,8 @@ public class Account {
     public void changeEmailAddress(String newEmailAddress) {
         this.emailAddress = newEmailAddress;
     }
+
+    //displays the subreddits joined by the account
     public void viewJoinedSubreddits()  {
         int i = 1;
         for(Subreddit temp : joinedSubreddits) {
@@ -165,10 +182,14 @@ public class Account {
             i++;
         }
     }
+
+    //Join subreddit
     public void joinSubreddit(Subreddit subreddit, Account account) {
         subreddit.setJoinedUsers(account);
         addJoinedSubreddits(subreddit);
     }
+
+    //displays a list of the posts from joined subreddits
     public void viewJoinedPosts() {
         for(Subreddit temp : joinedSubreddits) {
             for(Post post : temp.getPosts()) {
@@ -176,6 +197,8 @@ public class Account {
             }
         }
     }
+
+    //Karma functions
     public void postKarma(Account account, boolean voteType, Post post) {
         for(Post temp : upVotedPosts) {
             if(temp == post) {
@@ -270,6 +293,8 @@ public class Account {
         }
         System.out.println("You haven't voted");
     }
+
+    //Checks if the username is unique
     public static boolean usernameIsUsed(String username) {
         for (Account temp : Reddit.getAccounts()) {
             if(temp.getUsername().equals(username)) {
@@ -278,6 +303,8 @@ public class Account {
         }
         return false;
     }
+
+    //Checks if the email address is unique
     public static boolean emailIsUsed(String emailAddress) {
         for (Account temp : Reddit.getAccounts()) {
             if(temp.getEmailAddress().equals(emailAddress)) {
@@ -286,6 +313,8 @@ public class Account {
         }
         return false;
     }
+
+    //Displays a list of the posts saved by the user
     public void viewSavedPosts() {
         int i = 1;
         for (Post post : savedPosts) {

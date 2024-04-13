@@ -10,7 +10,7 @@ public class Main {
         Reddit.createSubreddit("first subreddit", a);
         runMenu();
     }
-    public static void runMenu() {
+    public static void runMenu() {//Login/SignUp/Exit
         while (true) {
             System.out.println("Enter your command\n1-Login 2-Sign up 3-Exit");
             Scanner in = new Scanner(System.in);
@@ -29,7 +29,7 @@ public class Main {
             }
         }
     }
-    public static void login() {
+    public static void login() {//Login
         Scanner scanner = new Scanner(System.in);
         System.out.println("username: ");
         String username = scanner.nextLine();
@@ -60,7 +60,7 @@ public class Main {
             makeMenu(account);
         }
     }
-    public static void signUp() {
+    public static void signUp() {//Sign up
         Scanner scanner = new Scanner(System.in);
         System.out.println("username: ");
         String username = scanner.nextLine();
@@ -89,14 +89,14 @@ public class Main {
         account.signup(account);
         makeMenu(account);
     }
-    public static void makeMenu(Account account) {
+    public static void makeMenu(Account account) {//Main Options
         boolean hasLoggedOut = false;
         while(!hasLoggedOut) {
             System.out.println("Enter your command\n1)Create Subreddit  2)View All Posts  3)View All Subreddits  4)View All Profiles  5)Create Post  6)Search  7)View TimeLine 8)Change Username & Password  9)Join Subreddit  10)Log Out  11)View Saved Posts  12)Chat");
             Scanner scanner = new Scanner(System.in);
             int cmd = scanner.nextInt();
             switch(cmd) {
-                case 1:
+                case 1://Create Subreddit
                     Scanner as = new Scanner(System.in);
                     System.out.println("Enter a title for the subreddit");
                     String title = as.nextLine();
@@ -110,7 +110,7 @@ public class Main {
                     }
                     Reddit.createSubreddit(title, account);
                     break;
-                case 2:
+                case 2://View All Posts
                     Reddit.viewAllPosts();
                     if(Reddit.getPosts().isEmpty()) {
                         System.out.println("No Posts");
@@ -123,16 +123,16 @@ public class Main {
                             System.out.println("1)Post Comment  2)Up Vote Post  3)Down Vote Post  4)Up Vote Comment  5)Down Vote Comment  6)Retract Comment Vote  7)Retract Post Vote  8)View Comment Poster's Profile  9)View Post Creator's Profile  10)Join the Subreddit related to the Post  11)Save Post  12)return");
                             Scanner d = new Scanner(System.in);
                             int v = d.nextInt();
-                            if (v == 1) {
+                            if (v == 1) {//Post Comment
                                 System.out.println("Body of the Comment: ");
                                 Scanner e = new Scanner(System.in);
                                 String body = e.nextLine();
                                 Reddit.addComment(Reddit.getPosts().get(index - 1), account, body);
-                            } else if (v == 2) {
+                            } else if (v == 2) {//Up Vote Post
                                 account.postKarma(account, true, Reddit.getPosts().get(index - 1));
-                            } else if (v == 3) {
+                            } else if (v == 3) {//Down Vote Post
                                 account.postKarma(account, false, Reddit.getPosts().get(index - 1));
-                            } else if (v == 4) {
+                            } else if (v == 4) {//Up Vote Comment
                                 if (!Reddit.getPosts().get(index - 1).getComments().isEmpty()) {
                                     int j = 1;
                                     for (Comment temp : Reddit.getPosts().get(index - 1).getComments()) {
@@ -144,7 +144,7 @@ public class Main {
                                     int inx = h.nextInt();
                                     account.commentKarma(account, true, Reddit.getPosts().get(index - 1).getComments().get(inx - 1));
                                 }
-                            } else if (v == 5) {
+                            } else if (v == 5) {//Down Vote Comment
                                 if (!Reddit.getPosts().get(index - 1).getComments().isEmpty()) {
                                     int i = 1;
                                     for (Comment temp : Reddit.getPosts().get(index - 1).getComments()) {
@@ -156,7 +156,7 @@ public class Main {
                                     int inx = h.nextInt();
                                     account.commentKarma(account, false, Reddit.getPosts().get(index - 1).getComments().get(inx - 1));
                                 }
-                            } else if (v == 6) {
+                            } else if (v == 6) {//Retract Comment Vote
                                 if (!Reddit.getPosts().get(index - 1).getComments().isEmpty()) {
                                     int i = 1;
                                     for (Comment temp : Reddit.getPosts().get(index - 1).getComments()) {
@@ -168,9 +168,9 @@ public class Main {
                                     int inx = h.nextInt();
                                     account.retractVote(Reddit.getPosts().get(index - 1).getComments().get(inx - 1));
                                 }
-                            } else if (v == 7) {
+                            } else if (v == 7) {//Retract Post Vote
                                 account.retractVote(Reddit.getPosts().get(index - 1));
-                            } else if (v == 8) {
+                            } else if (v == 8) {//View Comment Poster's Profile
                                 if (!Reddit.getPosts().get(index - 1).getComments().isEmpty()) {
                                     int i = 1;
                                     for (Comment temp : Reddit.getPosts().get(index - 1).getComments()) {
@@ -184,10 +184,10 @@ public class Main {
 
                                 }
                                 //break;
-                            } else if (v == 9) {
+                            } else if (v == 9) {//View Post Creator's Profile
                                 Reddit.getPosts().get(index - 1).getCreator().viewProfile();
                                 //break;
-                            } else if (v == 10) {
+                            } else if (v == 10) {//Join the Subreddit related to the Post
                                 boolean flag = true;
                                 for (Subreddit temp : account.getJoinedSubreddits()) {
                                     if (Objects.equals(temp, Reddit.getPosts().get(index - 1).getSubreddit())) {
@@ -199,7 +199,7 @@ public class Main {
                                     account.joinSubreddit(Reddit.getPosts().get(index - 1).getSubreddit(), account);
                                 }
                             }
-                            else if (v == 11) {
+                            else if (v == 11) {//Save Post
                                 if(!account.getSavedPosts().contains(Reddit.getPosts().get(index - 1))) {
                                     account.setSavedPosts(Reddit.getPosts().get(index - 1));
                                 }
@@ -210,7 +210,7 @@ public class Main {
                         }
                     }
                     break;
-                        case 3:
+                        case 3://View All Subreddits
                             Reddit.viewAllSubreddits();
                             if (Reddit.getSubreddits().isEmpty()) {
                                 System.out.println("No Subreddits");
@@ -239,7 +239,7 @@ public class Main {
                                         System.out.println("1)Remove a Post 2)Remove a Member  3)Add an Admin");
                                         Scanner j = new Scanner(System.in);
                                         int b = j.nextInt();
-                                        if (b == 1) {
+                                        if (b == 1) {//Remove a Post
                                             for (Post temp : Reddit.getSubreddits().get(o - 1).getPosts()) {
                                                 temp.viewPost(1);
                                             }
@@ -263,7 +263,7 @@ public class Main {
                                             temp.getCreator().getPosts().remove(temp);
                                             Reddit.getSubreddits().get(o - 1).getPosts().remove(temp);
                                             Reddit.getPosts().remove(temp);
-                                        } else if (b == 2) {
+                                        } else if (b == 2) {//Remove a Member
                                             System.out.println("-All the Members-");
                                             int i = 1;
                                             for (Account temp : Reddit.getSubreddits().get(o - 1).getJoinedUsers()) {
@@ -284,7 +284,7 @@ public class Main {
                                                 Reddit.getSubreddits().get(o - 1).getJoinedUsers().remove(temp);
                                                 temp.getJoinedSubreddits().remove(Reddit.getSubreddits().get(o - 1));
                                             }
-                                        } else if (b == 3) {
+                                        } else if (b == 3) {//Add an Admin
                                             for (Account temp : Reddit.getSubreddits().get(o - 1).getJoinedUsers()) {
                                                 temp.viewProfile();
                                             }
@@ -326,16 +326,16 @@ public class Main {
                                     System.out.println("1)Post Comment  2)Up Vote Post  3)Down Vote Post  4)Up Vote Comment  5)Down Vote Comment  6)Retract Comment Vote  7)Retract Post Vote  8)View Comment Poster's Profile  9)View Post Creator's Profile  else)return");
                                     Scanner d = new Scanner(System.in);
                                     int v = d.nextInt();
-                                    if (v == 1) {
+                                    if (v == 1) {//Post Comment
                                         System.out.println("Body of the Comment: ");
                                         Scanner e = new Scanner(System.in);
                                         String body = e.nextLine();
                                         Reddit.addComment(Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1), account, body);
-                                    } else if (v == 2) {
+                                    } else if (v == 2) {//Up Vote Post
                                         account.postKarma(account, true, Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1));
-                                    } else if (v == 3) {
+                                    } else if (v == 3) {//Down Vote Post
                                         account.postKarma(account, false, Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1));
-                                    } else if (v == 4) {
+                                    } else if (v == 4) {//Up Vote Comment
                                         if (!Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1).getComments().isEmpty()) {
                                             int j = 1;
                                             for (Comment temp : Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1).getComments()) {
@@ -347,7 +347,7 @@ public class Main {
                                             int inx = h.nextInt();
                                             account.commentKarma(account, true, Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1).getComments().get(inx - 1));
                                         }
-                                    } else if (v == 5) {
+                                    } else if (v == 5) {//Down Vote Comment
                                         if (!Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1).getComments().isEmpty()) {
                                             int i = 1;
                                             for (Comment temp : Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1).getComments()) {
@@ -359,7 +359,7 @@ public class Main {
                                             int inx = h.nextInt();
                                             account.commentKarma(account, false, Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1).getComments().get(inx - 1));
                                         }
-                                    } else if (v == 6) {
+                                    } else if (v == 6) {//Retract Comment Vote
                                         if (!Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1).getComments().isEmpty()) {
                                             int i = 1;
                                             for (Comment temp : Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1).getComments()) {
@@ -371,9 +371,9 @@ public class Main {
                                             int inx = h.nextInt();
                                             account.retractVote(Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1).getComments().get(inx - 1));
                                         }
-                                    } else if (v == 7) {
+                                    } else if (v == 7) {//Retract Post Vote
                                         account.retractVote(Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1));
-                                    } else if (v == 8) {
+                                    } else if (v == 8) {//View Comment Poster's Profile
                                         if (!Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1).getComments().isEmpty()) {
                                             int i = 1;
                                             for (Comment temp : Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1).getComments()) {
@@ -386,7 +386,7 @@ public class Main {
                                             Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1).getComments().get(inx - 1).getCreator().viewProfile();
                                         }
                                         break;
-                                    } else if (v == 9) {
+                                    } else if (v == 9) {//View Post Creator's Profile
                                         Reddit.getSubreddits().get(o - 1).getPosts().get(index - 1).getCreator().viewProfile();
                                         break;
                                     }
@@ -396,12 +396,12 @@ public class Main {
                                 }
                     }
                     break;
-                case 4:
+                case 4://View all profiles
                     for(Account temp : Reddit.getAccounts()) {
                         temp.viewProfile();
                     }
                     break;
-                case 5:
+                case 5://Create post
                     if (account.getJoinedSubreddits().isEmpty()) {
                         System.out.println("In order to post you need to join a subreddit");
                         break;
@@ -419,7 +419,7 @@ public class Main {
                         Reddit.createPost(Title, body, account, account.getJoinedSubreddits().get(c - 1));
                     }
                     break;
-                case 6:
+                case 6://Search
                     System.out.println("Enter whatever you want to search(add ‘r/’ to the subreddit name and ‘u/’ to the username)");
                     Scanner a = new Scanner(System.in);
                     String s = a.nextLine();
@@ -448,7 +448,7 @@ public class Main {
                         }
                     }
                     break;
-                case 7:
+                case 7://View timeline
                     account.viewJoinedPosts();
                     int k = 0;
                     for(Subreddit temp : account.getJoinedSubreddits()) {
@@ -547,7 +547,7 @@ public class Main {
                         }
                     }
                     break;
-                case 8:
+                case 8://user settings
                     Scanner sc = new Scanner(System.in);
                     System.out.println("new username: ");
                     String username = sc.nextLine();
@@ -565,7 +565,7 @@ public class Main {
                     account.changePassword(password);
                     account.changeUsername(username);
                     break;
-                case 9:
+                case 9://Join subreddit
                     Reddit.viewAllSubreddits();
                     Scanner i = new Scanner(System.in);
                     int c = i.nextInt();
@@ -585,7 +585,7 @@ public class Main {
                 case 10:
                     hasLoggedOut = true;
                     break;
-                case 11:
+                case 11://Save post
                     account.viewSavedPosts();
                     if (account.getSavedPosts().isEmpty()) {
                         System.out.println("You haven't saved a post");
@@ -602,25 +602,34 @@ public class Main {
                         }
                     }
                     break;
-//                case 12:
-//                    Chat chat = new Chat();
-//                    System.out.println("Enter the name of the receiver");
-//                    Scanner e = new Scanner(System.in);
-//                    String receiver = e.nextLine();
-//                    System.out.println("Enter the text:");
-//                    Scanner n = new Scanner(System.in);
-//                    String text = n.nextLine();
-//                    for (Account temp : Reddit.getAccounts()) {
-//                        if (temp.getUsername().equals(receiver)) {
-//                            Message message = new Message(account, temp, text);
-//                            chat.addMessage(message);
-//                            Chat.displayChat(account,temp);
-//                        }
-//                        else {
-//                            System.out.println("Such an account does not exist");
-//                            break;
-//                        }
-//                    }
+                case 12://Chat
+                    int q = 1;
+                    for (Account temp : Reddit.getAccounts()) {
+                        System.out.println(q + ")" + temp.getUsername());
+                        q++;
+                    }
+                    System.out.println("Enter the index of receiver:");
+                    Scanner b = new Scanner(System.in);
+                    int receiver = b.nextInt();
+                    if (account.getUsername().equals(receiver )) {
+                        System.out.println("You can't chat with yourself");
+                        break;
+                    }
+                    System.out.println("Enter the text:");
+                    Scanner n = new Scanner(System.in);
+                    String text = n.nextLine();
+                    Chat chat = new Chat(account, Reddit.getAccounts().get(receiver - 1));
+                    for (Chat temp : Reddit.getChats()) {
+                        if (temp.getAccounts().contains(account) && temp.getAccounts().contains(Reddit.getAccounts().get(receiver - 1))) {
+                            chat = temp;
+                        }
+                        else {
+                            Reddit.getChats().add(chat);
+                        }
+                    }
+                    Message message = new Message(account, Reddit.getAccounts().get(receiver - 1), text);
+                    chat.addMessage(message);
+                    chat.displayChat();
                 default:
                     break;
             }

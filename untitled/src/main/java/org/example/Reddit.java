@@ -3,16 +3,27 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Reddit {
+
+    //Fields
     private static ArrayList<Subreddit> subreddits;
     private static ArrayList<Account> accounts;
     private static ArrayList<Post> posts;
+    public static ArrayList<Chat> chats;
     public static ArrayList<Account> getAccounts() {
         return accounts;
     }
+
+    //Constructor
     public Reddit() {
         subreddits = new ArrayList<>();
         accounts = new ArrayList<>();
         posts = new ArrayList<>();
+        chats = new ArrayList<>();
+    }
+
+    //Setters and Getters
+    public static ArrayList<Chat> getChats() {
+        return chats;
     }
     public static ArrayList<Subreddit> getSubreddits() {
         return subreddits;
@@ -25,6 +36,8 @@ public class Reddit {
         post.addComment(comment);
         account.addComment(comment);
     }
+
+    //Adding stuff
     public static void addSubreddit(Subreddit subreddit) {
         subreddits.add(subreddit);
     }
@@ -34,6 +47,8 @@ public class Reddit {
     public static void addPost(Post post) {
         posts.add(post);
     }
+
+    //Searching among accounts and subreddits
     public static Account searchAccount(String username){
         for(Account temp : accounts) {
             if(temp.getUsername().equals(username)) {
@@ -50,6 +65,8 @@ public class Reddit {
         }
         return null;
     }
+
+    //Viewing all subreddits
     public static void viewAllSubreddits() {
         int i = 1;
         for(Subreddit temp : subreddits) {
@@ -57,6 +74,8 @@ public class Reddit {
             i++;
         }
     }
+
+    //viewing all posts
     public static void viewAllPosts() {
         int i = 1;
         for(Post temp : posts) {
@@ -64,6 +83,8 @@ public class Reddit {
             i++;
         }
     }
+
+    //Creating subreddit and post
     public static void createSubreddit(String title, Account account) {
         Subreddit subreddit = new Subreddit(title, account);
         addSubreddit(subreddit);
